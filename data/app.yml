@@ -1,0 +1,20 @@
+delete_api: 
+  resource:   manageged/users/delete
+  verb:       DELETE
+add_user_api:
+  verb:       PUT
+  resource:   managed/users/add
+
+environments:
+  prod:
+    api_server: prod.example.com
+    protocol: https
+  uat:
+    api_server: uat.example.com  
+    protocol: https
+# raincoat: 1
+# coins: 5
+# books: 23
+# spectacles: 2
+# chairs: 12
+# pens: 6
