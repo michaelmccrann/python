@@ -1,9 +1,23 @@
-delete_api: 
-  resource:   manageged/users/delete
-  verb:       DELETE
-add_user_api:
-  verb:       PUT
-  resource:   managed/users/add
+global:
+  base_url_template:   "{{ protocol | default('https') }}://{{ server }}:{{ port | default('443') }}"
+  full_api_url:        "{{ base_url }}/{{ resource }}"
+
+apis:
+  my_api:
+    delete_api: 
+      resource:   manageged/users/delete
+      verb:       DELETE
+    add_user_api:
+      verb:       PUT
+      resource:   managed/users/add
+  test_data_api:
+    all_users: 
+      verb:           GET
+      url_template:   users
+    one_user:
+      verb:           GET
+      url_template:   user?{{ user_id }}  
+
 
 environments:
   prod:
@@ -12,9 +26,7 @@ environments:
   uat:
     api_server: uat.example.com  
     protocol: https
-# raincoat: 1
-# coins: 5
-# books: 23
-# spectacles: 2
-# chairs: 12
-# pens: 6
+
+  test_data:
+    api_server: jsonplaceholder.typicode.com
+    protocol: https  

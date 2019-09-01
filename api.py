@@ -1,15 +1,31 @@
 #!/usr/bin/env python3
 
 import yaml
+from jinja2 import Template
+import requests
+import json
+import utilities
 
-with open('data/data.yaml') as f:
-    
-    docs = yaml.load_all(f, Loader=yaml.FullLoader)
+with open('data/app.yml') as f:
+     data = yaml.load(f, Loader=yaml.FullLoader)
 
-    for doc in docs:
-        
-        for k, v in doc.items():
-            print(k, "->", v)
+api = data['apis']['test_data_api']
+env = data['environments']['test_data']
 
+base_url = utilities.get_base_url(data['global']['base_url_template'], env['api_server'])
 
-            https://developer.github.com/v3/activity/events/#list-public-events
+resource_template_str = api['all_users']['url_template']
+url = utilities.get_full_url(base_url, resource_template_str)
+
+print (url)
+
+r = requests.get(url)
+print(r.status_code)
+
+for user in json.loads(r.text):
+  p = utilities.get_person(user)
+  print (p)
+  if p.password:
+    print (p)
+  #print (user)
+

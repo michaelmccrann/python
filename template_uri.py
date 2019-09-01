@@ -14,7 +14,7 @@ with open('data/app.yml') as f:
     template = Template(uri_template_str)
 
     server=data['environments']['prod']['api_server']
-    resource=data['delete_api']['resource']
+    resource=data['apis']['my_api']['delete_api']['resource']
     print(template.render(api_server=server, resource=resource))
 
 
